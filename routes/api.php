@@ -4,10 +4,10 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 
-Route::get('/userprofile', [AuthController::class, 'userProfile'])->middleware('jwt.verify');
+Route::get('/userprofile', [AuthController::class, 'userProfile'])->middleware('jwt.verify', 'role_or_permission:user-view');
 
 Route::group([
-    'middleware' => 'api',
+    'middleware' => ['api'],
     'prefix'     => 'v1'
 ], function ($router) {
     Route::post('/login',       [AuthController::class, 'login']);
